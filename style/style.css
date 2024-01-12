@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+body,
+html {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    background-color: #181825;
+}
+
+section {
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    height: 71.5vh;
+    width: 71.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #585b70;
+}
+
+article {
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+    width: 65vh;
+    height: 65vh;
+    border-radius: 32.5vh;
+    background-color: #11111b;
+    transition: all 5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    filter: blur(7.5vh);
+}
+
+section:hover article {
+    opacity: .75;
+}
+
+div {
+    text-align: center;
+    font-size: large;
+    color: #cdd6f4;
+    font-weight: bold;
+    font-family: 'JetBrains Mono', monospace;
+    word-wrap: break-word;
+    position: absolute;
+    z-index: 0;
+    opacity: .35;
+    height: 100%;
+    width: 100%;
+}
+
+svg {
+    text-shadow: 0 0 5vh #11111b;
+    z-index: 3;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0.8);
+    transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1)
+}
+
+svg:hover {
+    opacity: 1;
+    transform: scale(1);
+}
