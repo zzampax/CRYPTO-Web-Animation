@@ -16,8 +16,8 @@ section {
     user-select: none;
     position: relative;
     overflow: hidden;
-    height: 71.5vh;
-    width: 71.5vh;
+    height: 61vh;
+    width: 61vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +27,7 @@ section {
 article {
     position: absolute;
     z-index: 2;
-    opacity: 0;
+    opacity: .25;
     width: 65vh;
     height: 65vh;
     border-radius: 32.5vh;
@@ -53,9 +53,10 @@ div {
     height: 100%;
     width: 100%;
 }
-
-svg {
-    text-shadow: 0 0 5vh #11111b;
+h1 {
+    font-family: 'JetBrains Mono', monospace;
+    color: #cdd6f4;
+    font-size: 15vh;
     z-index: 3;
     height: 100%;
     width: 100%;
@@ -63,10 +64,10 @@ svg {
     justify-content: center;
     align-items: center;
     transform: scale(0.8);
-    transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1)
+    transition: transform 4s cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 
-svg:hover {
+section:hover h1 {
     opacity: 1;
     transform: scale(1);
 }

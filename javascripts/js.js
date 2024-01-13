@@ -1,11 +1,12 @@
 let elem = document.querySelector('div');
-let svgText = document.querySelector('svg text');
+let h1Text = document.querySelector('h1');
 let shadow = document.querySelector('article');
 let generalInterval, closedInterval = null;
 
 let dictionary = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 let randomWords = ["Encryption", "Decryption", "Cipher", "Algorithm", "Key", "Public", "Private", "Hash", "Signature", "Symmetric", "Asymmetric", "Protocol", "RSA", "AES", "DES", "Blockchain", "Cryptanalysis", "Steganography", "DiffieHellman", "EllipticCurve"];
 let colors = ["#a6e3a1", "#fab387", "#eba0ac", "#cba6f7", "#f9e2af", "#89b4fa"];
+let cursors = ["alias", "all-scroll", "auto", "cell", "context-menu", "col-resize", "copy", "crosshair", "default", "e-resize", "ew-resize", "grab", "grabbing", "help", "move", "n-resize", "ne-resize", "nesw-resize", "ns-resize", "nw-resize", "nwse-resize", "no-drop", "none", "not-allowed", "pointer", "progress", "row-resize", "s-resize", "se-resize", "sw-resize", "text", "vertical-text", "w-resize", "wait", "zoom-in", "zoom-out"];
 
 let oldDistance = {x: 0, y: 0};
 
@@ -19,6 +20,10 @@ const randomWord = () => {
 
 const randomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
+}
+
+const randomCursor = () => {
+    return cursors[Math.floor(Math.random() * cursors.length)];
 }
 
 const randomString = (cap = 3000) => {
@@ -45,16 +50,21 @@ elem.parentElement.addEventListener('mouseenter', () => {
 
     //clearInterval(generalInterval);
     
+    clearInterval(closedInterval);
+
     closedInterval = setInterval(() => {
         let innerInterval = setInterval(() => {
             elem.innerHTML = randomString();
-            svgText.textContent = randomTitleString();
-            svgText.setAttribute('fill', randomColor());
-        }, 20);
+            document.body.style.cursor = randomCursor();
+            h1Text.textContent = randomTitleString();
+            console.log(h1Text.textContent);
+            h1Text.style.color = randomColor();
+        }, 50);
         setTimeout(() => {
             clearInterval(innerInterval);
-            svgText.textContent = `${Math.random() < 0.5 ? 'C' : '@'}R${Math.random() < 0.5 ? 'Y' : '¥'}PT${Math.random() < 0.5 ? 'O' : 'Ø'}`; // '@R¥PTØ'
-        }, 500);
+            document.body.style.cursor = 'default';
+            h1Text.textContent = `${Math.random() < 0.5 ? 'C' : '@'}R${Math.random() < 0.5 ? 'Y' : '¥'}PT${Math.random() < 0.5 ? 'O' : 'Ø'}`; // '@R¥PTØ'
+        }, 700);
     }, Math.floor(Math.random() * 1000) + 2500);
     
     elem.parentElement.addEventListener('mousemove', (e) => {
@@ -82,13 +92,13 @@ elem.parentElement.addEventListener('mouseleave', () => {
 
     let innerInterval = setInterval(() => {
         elem.innerHTML = randomString();
-        svgText.textContent = randomString(6);
-        svgText.setAttribute('fill', randomColor());
+        h1Text.textContent = randomTitleString();
+        h1Text.style.color = randomColor();
     }, 20);
     setTimeout(() => {
         clearInterval(innerInterval);
-        svgText.textContent = 'CRYPTO';
-        svgText.setAttribute('fill', '#cdd6f4');
+        h1Text.textContent = 'CRYPTO';
+        h1Text.style.color = "#cdd6f4";
     }, 500);
 
     /*generalInterval = setInterval(() => {
@@ -99,6 +109,61 @@ elem.parentElement.addEventListener('mouseleave', () => {
             clearInterval(innerInterval);
         }, 500);
     }, Math.floor(Math.random() * 1000) + 2500);*/
+});
+
+
+elem.parentElement.addEventListener('touchstart', (e) => {
+
+    clearInterval(closedInterval);
+
+    closedInterval = setInterval(() => {
+        let innerInterval = setInterval(() => {
+            elem.innerHTML = randomString();
+            document.body.style.cursor = randomCursor();
+            h1Text.textContent = randomTitleString();
+            console.log(h1Text.textContent);
+            h1Text.style.color = randomColor();
+        }, 30);
+        setTimeout(() => {
+            clearInterval(innerInterval);
+            document.body.style.cursor = 'default';
+            h1Text.textContent = `${Math.random() < 0.5 ? 'C' : '@'}R${Math.random() < 0.5 ? 'Y' : '¥'}PT${Math.random() < 0.5 ? 'O' : 'Ø'}`; // '@R¥PTØ'
+        }, 700);
+    }, Math.floor(Math.random() * 1000) + 2500);
+    
+    elem.parentElement.addEventListener('touchmove', (e) => {
+
+        let distance = {x: e.touches[0].clientX, y: e.touches[0].clientY};
+        if (Math.sqrt(Math.pow(distance.x - oldDistance.x, 2) + Math.pow(distance.y - oldDistance.y, 2)) < 50) {
+            return;
+        }
+        oldDistance = distance;
+        
+        let left = e.touches[0].clientX;
+        let top = e.touches[0].clientY;
+        console.log(shadow.clientWidth / 2, shadow.clientHeight / 2)
+        shadow.style.left = (left - shadow.clientWidth / 2) + 'px';
+        shadow.style.top = (top - shadow.clientHeight / 2) + 'px';
+
+        elem.innerHTML = randomString();
+    });
+});
+
+elem.parentElement.addEventListener('touchend', () => {
+    clearInterval(closedInterval);
+
+    elem.parentElement.removeEventListener('touchmove', () => {});
+
+    let innerInterval = setInterval(() => {
+        elem.innerHTML = randomString();
+        h1Text.textContent = randomTitleString();
+        h1Text.style.color = randomColor();
+    }, 10);
+    setTimeout(() => {
+        clearInterval(innerInterval);
+        h1Text.textContent = 'CRYPTO';
+        h1Text.style.color = "#cdd6f4";
+    }, 500);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -117,3 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, Math.floor(Math.random() * 1000) + 2500);*/
 });
 
+document.querySelector('section').addEventListener('touchstart', function(e) {
+    e.preventDefault();
+});
